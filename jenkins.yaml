@@ -1,0 +1,21 @@
+pipeline {
+    agent { kubernetes 'jenkinsm2-jenkins-agent2'}
+
+    stages {
+        stage('Hello') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+        stage('1') {
+            steps {
+                git branch: 'main', url: 'https://github.com/JayAgrawalgit/helm_chart.git'
+            }
+        }
+        stage('2') {
+            steps {
+                sh 'helm list'
+            }
+        }
+    }
+}
