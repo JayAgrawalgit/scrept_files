@@ -1,20 +1,48 @@
 pipeline {
-    agent { kubernetes 'jenkinsm2-jenkins-agent2'}
-
+    agent {
+        kubernetes {
+            yaml '''
+apiVersion: v1
+kind: Pod
+spec:
+  serviceAccountName: jenkinsm7
+  containers:
+  - name: shell
+    image: jayagrawaldocker/jenkins:0.4
+    command:
+    - sleep
+    args:
+    - infinity
+'''
+            defaultContainer 'shell'
+        }
+    }
     stages {
-        stage('Hello') {
+        stage('Main') {
             steps {
-                echo 'Hello World'
+                sh 'hostname'
             }
         }
-        stage('1') {
+        stage('git call') {
             steps {
                 git branch: 'main', url: 'https://github.com/JayAgrawalgit/helm_chart.git'
+                sh 'ls -a'
             }
         }
-        stage('2') {
+        stage('version cheak') {
             steps {
-                sh 'helm list'
+                sh 'helm version'
+                sh 'kubectl version'
+            }
+        }
+        stage('helm install mysql'){
+            steps{
+                sh 'helm upgrade --install mysql chart5'
+            }
+        }
+        stage('helm install wordpress'){
+            steps{
+                sh 'helm upgrade --install wordpress chart3'
             }
         }
     }
