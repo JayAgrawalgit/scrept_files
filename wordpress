@@ -1,0 +1,6 @@
+1. create helm create wordpress
+2. in vlaues.yaml
+2.1. image name wordpress with tag 5.8
+2.2.1. service type: LoadBalancer 
+2.2.2. service port: 8080
+
