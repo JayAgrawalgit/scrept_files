@@ -1,16 +1,24 @@
-1 create helm chart mysql
-2 in values.yaml
-2.1 image name mysql with tag: 5.6
-2.2 env:
-      passwd: rootPasswd
-      user: admin
-      db: mydb
-      userPasswd: adminPasswd
+
+#### Creating Mysql helm chart:
+1. for creating row chart
+```bash
+helm create sql
+```
+2. changes in values.yaml  
+- image:
+  - repository: `mysql`
+  - tag: `"5.6"`  
+- service:
+  - type: `ClusterIP`
+  - port: `3306`
+3. Add whole env section in values.yaml
+```bash
 env:
-  host: mysql
+  passwd: rootPasswd
   user: admin
   db: mydb
   userPasswd: adminPasswd
+```
 
 
 env:
